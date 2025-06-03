@@ -1,0 +1,77 @@
+
+5월 23, 2025 09:24:19.232 NEW SESSION
+5월 23, 2025 09:24:19.232 [15168:9484:0523/092419.231:ERROR:chrome\browser\policy\cloud\fm_registration_token_uploader.cc:179] Client is missing for kUser scope
+5월 23, 2025 09:24:19.498 [15168:17936:0523/092419.498:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 23, 2025 09:24:19.849 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 23, 2025 09:24:57.623 [18812:13616:0523/092457.623:ERROR:chrome\browser\policy\cloud\fm_registration_token_uploader.cc:179] Client is missing for kUser scope
+5월 23, 2025 09:24:57.708 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 23, 2025 09:24:57.895 [18812:9468:0523/092457.895:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 23, 2025 09:25:25.388 [18812:9468:0523/092525.387:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 23, 2025 09:26:08.879 [18812:13616:0523/092608.878:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 23, 2025 09:26:08.879 [18812:13616:0523/092608.878:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 23, 2025 09:26:11.130 [18812:13616:0523/092611.130:ERROR:chrome\browser\ui\webui\new_tab_page\new_tab_page_handler.cc:1353] NewTabPage loaded into a non-browser-tab context
+5월 23, 2025 09:26:15.511 [18812:9468:0523/092615.511:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 23, 2025 09:27:50.227 [18812:9468:0523/092750.227:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 23, 2025 09:31:42.264 [18812:9468:0523/093142.263:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 23, 2025 09:38:44.953 [18812:9468:0523/093844.952:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 23, 2025 10:02:20.719 [18812:13616:0523/100220.719:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 23, 2025 14:56:52.875 [0523/145652.870:ERROR:third_party\crashpad\crashpad\util\file\filesystem_win.cc:128] GetFileAttributes C:\Users\M\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\257b528e-4d43-4f81-b597-3be07f25f7a0: 吏��젙�맂 �뙆�씪�쓣 李얠쓣 �닔 �뾾�뒿�땲�떎. (0x2)
+5월 23, 2025 14:56:52.875 [0523/145652.871:ERROR:third_party\crashpad\crashpad\util\file\filesystem_win.cc:128] GetFileAttributes C:\Users\M\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\257b528e-4d43-4f81-b597-3be07f25f7a0: 吏��젙�맂 �뙆�씪�쓣 李얠쓣 �닔 �뾾�뒿�땲�떎. (0x2)
+5월 23, 2025 15:52:27.494 [18812:13616:0523/155227.494:ERROR:chrome\browser\ui\webui\new_tab_page\new_tab_page_handler.cc:1353] NewTabPage loaded into a non-browser-tab context
+5월 23, 2025 15:52:28.461 [18812:13616:0523/155228.461:ERROR:chrome\browser\ui\webui\new_tab_page\new_tab_page_handler.cc:1353] NewTabPage loaded into a non-browser-tab context
+
+5월 24, 2025 10:11:04.348 NEW SESSION
+5월 24, 2025 10:11:04.348 [14312:14308:0524/101104.346:ERROR:chrome\browser\policy\cloud\fm_registration_token_uploader.cc:179] Client is missing for kUser scope
+5월 24, 2025 10:11:04.578 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 24, 2025 10:11:04.790 [14312:11768:0524/101104.790:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 24, 2025 10:11:25.905 [14312:11768:0524/101125.905:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 24, 2025 10:11:51.556 [14312:14308:0524/101151.556:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 24, 2025 10:11:51.557 [14312:14308:0524/101151.556:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 24, 2025 10:12:01.363 [14312:14308:0524/101201.363:ERROR:components\device_event_log\device_event_log_impl.cc:202] [10:12:01.363] Bluetooth: bluetooth_adapter_winrt.cc:1054 Getting Default Adapter failed.
+5월 24, 2025 10:12:09.605 [14312:11768:0524/101209.605:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 24, 2025 10:13:39.08 [14312:11768:0524/101339.007:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 24, 2025 10:15:13.356 [14312:14308:0524/101513.356:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 24, 2025 10:15:13.356 [14312:14308:0524/101513.356:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 24, 2025 10:15:48.580 [14312:14308:0524/101548.579:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 24, 2025 10:16:15.281 [14312:11768:0524/101615.281:ERROR:google_apis\gcm\engine\connection_factory_impl.cc:434] Failed to connect to MCS endpoint with error -118
+5월 24, 2025 10:16:20.756 [14312:11768:0524/101620.756:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 24, 2025 10:23:07.762 [14312:11768:0524/102307.762:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 24, 2025 11:10:20.109 [14312:14308:0524/111020.108:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 24, 2025 11:10:20.109 [14312:14308:0524/111020.108:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+
+5월 26, 2025 09:19:20.425 NEW SESSION
+5월 26, 2025 09:19:20.425 [16712:17368:0526/091920.424:ERROR:chrome\browser\policy\cloud\fm_registration_token_uploader.cc:179] Client is missing for kUser scope
+5월 26, 2025 09:19:20.693 [16712:14416:0526/091920.693:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 26, 2025 09:19:21.382 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 26, 2025 09:19:50.326 [16712:14416:0526/091950.325:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 26, 2025 09:20:47.64 [16712:14416:0526/092047.064:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 26, 2025 09:22:07.820 [16712:14416:0526/092207.819:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 26, 2025 09:25:25.510 [16712:14416:0526/092525.510:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 26, 2025 09:32:44.357 [16712:14416:0526/093244.356:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 26, 2025 10:02:21.477 [16712:17368:0526/100221.477:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 26, 2025 10:33:10.969 [16712:17368:0526/103310.968:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 0 rejected by interface blink.mojom.WidgetHost
+5월 26, 2025 14:44:37.347 [16712:17368:0526/144437.346:ERROR:chrome\browser\ui\webui\new_tab_page\new_tab_page_handler.cc:1353] NewTabPage loaded into a non-browser-tab context
+
+5월 30, 2025 11:09:32.944 NEW SESSION
+5월 30, 2025 11:09:32.944 [5952:13896:0530/110932.943:ERROR:chrome\browser\policy\cloud\fm_registration_token_uploader.cc:179] Client is missing for kUser scope
+5월 30, 2025 11:09:33.63 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 30, 2025 11:09:33.245 [5952:3332:0530/110933.244:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 30, 2025 11:09:54.385 [5952:3332:0530/110954.384:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 30, 2025 11:10:40.465 [5952:3332:0530/111040.465:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 30, 2025 11:12:39.106 [5952:3332:0530/111239.105:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 30, 2025 11:16:39.72 [5952:3332:0530/111639.072:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 30, 2025 11:23:30.986 [5952:3332:0530/112330.985:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+
+5월 31, 2025 12:26:36.316 NEW SESSION
+5월 31, 2025 12:26:36.316 [11872:15236:0531/122636.314:ERROR:chrome\browser\policy\cloud\fm_registration_token_uploader.cc:179] Client is missing for kUser scope
+5월 31, 2025 12:26:36.531 [11872:4364:0531/122636.531:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 31, 2025 12:26:36.767 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 31, 2025 12:27:05.03 [11872:4364:0531/122705.003:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 31, 2025 12:27:57.90 [11872:4364:0531/122757.090:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 31, 2025 12:29:52.231 [11872:4364:0531/122952.230:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 31, 2025 12:33:27.594 [11872:4364:0531/123327.594:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 31, 2025 12:40:31.544 [11872:4364:0531/124031.544:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: QUOTA_EXCEEDED
+5월 31, 2025 12:43:49.972 [11872:15236:0531/124349.972:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 31, 2025 12:43:54.870 [11872:15236:0531/124354.870:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 31, 2025 14:37:44.177 [11872:15236:0531/143744.177:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 0 rejected by interface blink.mojom.WidgetHost
+5월 31, 2025 14:42:18.465 [11872:15236:0531/144218.464:ERROR:chrome\browser\ui\webui\new_tab_page\new_tab_page_handler.cc:1353] NewTabPage loaded into a non-browser-tab context

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.sample.mapper.ProductMapper">
+  
+  	<insert id="insertProduct" parameterType="org.sample.domain.ProductVO">
+	    <selectKey keyProperty="productid" resultType="long" order="BEFORE">
+	        SELECT pd_product_seq.NEXTVAL FROM dual
+	    </selectKey>
+    INSERT INTO pd_product (productid, description, price, condition, brand, modelname)
+    VALUES (#{productid}, #{description}, #{price}, #{condition}, #{brand}, #{modelName})
+	</insert>
+
+    <select id="readProduct" parameterType="Long" resultType="org.sample.domain.ProductVO">
+        SELECT * FROM pd_product WHERE productid = #{productid}
+    </select>
+
+    <delete id="deleteProduct" parameterType="Long">
+        DELETE FROM pd_product WHERE productid = #{productid}
+    </delete>
+
+    <update id="updateProduct" parameterType="org.sample.domain.ProductVO">
+        UPDATE pd_product
+        SET description = #{description}, price = #{price}, condition = #{condition}, brand = #{brand}, modelname=#{modelName}
+        WHERE productid = #{productid}
+    </update>
+    
+    <select id="getProductById" parameterType="Long" resultType="org.sample.domain.ProductVO">
+    	SELECT * FROM pd_product WHERE productid = #{productid}
+	</select>
+  </mapper>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.sample.mapper.BoardMapper">
+
+	<insert id="insertBoard" parameterType="org.sample.domain.BoardVO">
+        INSERT INTO pd_board (boardid, productid, userid, status, regdate, title)
+        VALUES (pd_board_seq.NEXTVAL, #{productid}, #{userid}, #{status}, SYSDATE, #{title})
+    </insert>
+    
+    <insert id="insertSelectKeyBoard" parameterType="org.sample.domain.BoardVO">
+	    <selectKey keyProperty="boardid" resultType="long" order="BEFORE">
+	        SELECT pd_board_seq.NEXTVAL FROM dual
+	    </selectKey>
+    INSERT INTO pd_board (boardid, productid, userid, status, regdate, title)
+    VALUES (#{boardid}, #{productid}, #{userid}, #{status}, SYSDATE, #{title})
+	</insert>
+
+    <!-- 상세 정보용 ResultMap -->
+    <resultMap id="readBoard" type="org.sample.domain.BoardVO">
+	    <id property="boardid" column="boardid"/>
+	    <result property="productid" column="productid"/>
+	    <result property="userid" column="userid"/>
+	    <result property="status" column="status"/>
+	    <result property="regDate" column="regdate"/>
+	    <result property="title" column="title"/>
+	
+	    <association property="user" javaType="org.sample.domain.UserVO"
+	                 select="org.sample.mapper.UserMapper.getUserById"
+	                 column="userid" />
+	
+	    <association property="product" javaType="org.sample.domain.ProductVO"
+	                 select="org.sample.mapper.ProductMapper.getProductById"
+	                 column="productid" />
+	
+	    <collection property="imgList" ofType="org.sample.domain.ImgPathVO"
+	                select="org.sample.mapper.ImgPathMapper.getImgListById"
+	                column="productid" />
+	</resultMap>
+
+
+    <!-- 게시글 단건 조회 -->
+    <select id="readBoard" resultMap="readBoard" parameterType="Long">
+	    SELECT boardid, productid, userid, status, regdate, title
+	    FROM pd_board
+	    WHERE boardid = #{boardid}
+	</select>
+
+    
+
+    <delete id="deleteBoard" parameterType="Long">
+        DELETE FROM pd_board WHERE boardid = #{boardid}
+    </delete>
+
+    <update id="updateBoard" parameterType="org.sample.domain.BoardVO">
+        UPDATE pd_board
+        SET status = #{status}, title = #{title}
+        WHERE boardid = #{boardid}
+    </update>
+    
+     <!-- 게시글 전체 목록 조회 -->
+	<resultMap id="BoardWithUserProductMap" type="org.sample.domain.BoardVO">
+	    <id property="boardid" column="boardid"/>
+	    <result property="title" column="title"/>
+	    <result property="status" column="status"/>
+	
+	    <!-- 연관 정보 가져오기 (nickname만 필요) -->
+	    <association property="user" javaType="org.sample.domain.UserVO"
+	                 select="org.sample.mapper.UserMapper.getUserById"
+	                 column="userid" />
+	
+	    <!-- 브랜드만 필요 -->
+	    <association property="product" javaType="org.sample.domain.ProductVO"
+	                 select="org.sample.mapper.ProductMapper.getProductById"
+	                 column="productid" />
+	</resultMap>
+	
+	<select id="getList" resultMap="BoardWithUserProductMap">
+	    SELECT boardid, title, regdate, userid, productid, status
+	    FROM pd_board
+	    ORDER BY boardid DESC
+	</select>
+
+	
+	
+	
+<!--  
+	
+	<select id="getList" resultMap="BoardWithUserProductMap">
+	    SELECT * FROM pd_board ORDER BY boardid DESC
+	</select>
+-->	
+  	
+  	
+  	
+  	
+  	<!-- 이 밑으로 수정해야함. -->
+  	
+<!--<select id="selectAll" resultType="org.sample.domain.BoardVO">
+        SELECT * FROM pd_board ORDER BY boardid DESC
+    </select> -->
+
+  <!-- 조건 검색 공통 SQL 조각 -->
+  <sql id="criteria">
+    <trim prefix="(" suffix=") AND">
+      <foreach collection="typeArr" item="type" separator="OR">
+        <if test="type eq 'T'">
+          title LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="type eq 'C'">
+          description LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="type eq 'W'">
+          nickname LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="type eq 'B'">
+          brand LIKE '%' || #{keyword} || '%'
+        </if>
+      </foreach>
+    </trim>
+  </sql>
+
+<select id="getListWithPaging" resultType="org.sample.domain.BoardVO">
+  	<![CDATA[
+  	select boardid, title, nickname, status, brand, regdate, title
+  	from(
+  		select /*+ index_desc(pd_board pk_board)*/
+  		rownum rn, boardid, title, nickname, status, brand, regdate, title
+  		from pd_board
+  		where
+  	]]>
+  	
+  	<include refid="criteria"></include>
+  		
+  	<![CDATA[
+  		 rownum <= #{pageNum} * #{amount}
+  	)
+  	where rn > (#{pageNum}-1)*#{amount}
+  	]]>
+  </select>
+
+  <select id="countTotal" resultType="int">
+    SELECT COUNT(*) FROM pd_board
+    WHERE
+    <include refid="criteria"/>
+    boardid > 0
+  </select>
+
+<!--   <select id="searchTest" resultType="org.sample.domain.BoardVO">
+    <![CDATA[
+      SELECT * FROM paldo
+      WHERE
+    ]]>
+    <trim suffix="AND">
+      <foreach collection="map" index="key" item="val" separator="OR" open="(" close=")">
+        <if test="key eq 'T'">
+          title LIKE #{val}
+        </if>
+        <if test="key eq 'C'">
+          description LIKE #{val}
+        </if>
+        <if test="key eq 'W'">
+          nickname LIKE #{val}
+        </if>
+      </foreach>
+    </trim>
+    <![CDATA[
+      rownum < 10
+    ]]>
+    
+  </select> -->
+
+</mapper>

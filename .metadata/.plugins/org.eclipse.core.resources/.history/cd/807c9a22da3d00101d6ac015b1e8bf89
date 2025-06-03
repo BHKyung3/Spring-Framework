@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Logout Page</h1>
+	<form action="/customLogout" method="post">
+	
+	<!-- 보안 강화를 위해 반드시 기재 해야함 미기재 시 로그인 불가(접근 불가) post 요청 시 매번 넣어야함 꼭 -->
+	<input type='hidden' name="${_csrf.parameterName}" value="${_csrf.token}" />
+	
+	<button>로그아웃</button>
+	
+	</form>
+</body>
+</html>

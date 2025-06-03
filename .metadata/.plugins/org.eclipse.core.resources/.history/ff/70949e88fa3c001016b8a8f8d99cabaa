@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?> <!-- 스프링 시큐리티는 단독으로 설정할 수 있어 기존 xml과 다르게 따로 작성하는게 좋음 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 에러나면 스프링이 만든 페이지가 아닌 내가 만든 페이지를 띄운다고 스프링한테 이야기 하는 코드 -->	
+	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
+	
+	<!-- 로그인 성공 후 동작을 제어하는 핸들러 객체를 등록 -->
+	<bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
+	
+	<!-- 비밀번호를 암호화하거나 암호화된 비밀번호를 비교하는 객체 -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	
+	<!-- 사용자의 정보를 DB에서 꺼내오는 역할을 하는 서비스 -->
+	<bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>
+
+	<!-- 인증 관련 : 접근 제한 설정 // ROLE_MEMBER -> 권한 없으면 로그인 페이지 이동 / permitAll -> 누구나 접근 가능 -->
+	<security:http>
+		<security:intercept-url pattern="/sample/all" access="permitAll"/>
+	    <security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')"/>
+	    <security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>
+	    
+	    <!-- csrf 보안 정책을 사용하지 않겠다 : 토큰 미사용 시 기재(보안 매우 약함) -> 실무에서 미사용 -->
+	    <!-- <security:csrf disabled="true"/> -->
+	    
+	    <!-- <security:form-login /> -->
+	    
+	    <!-- 시큐리티가 제공하는 로그인 페이지를 사용하지 않고, 내가 직접 로그인 페이지를 구현하겠다. -->
+	    <!-- authentication-success-handler-ref="customLoginSuccess" : 로그인 성공하면 여기로 이동하겠다 -->
+	    <security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+	    
+	    <!-- 접근 권한이 없을 때 실행되는 handler -->
+	    <security:access-denied-handler ref="customAccessDenied" /> <!-- ref : 에러 터지면 내가 만든 페이지 링크를 띄우기 -->
+	    
+	    <security:logout logout-url="/customLogout" invalidate-session="true"/> <!-- 로그아웃 진행 시 작동하기 위해 기재 -->
+	   
+	</security:http>
+	
+	<!-- 인가 관련 : 임시계정 발급 -->
+	<!-- password="{noop}member : 비밀번호를 암호화하지 않고 사용하겠다(시큐리티 5부터는 비밀번호 암호화가 되지 않으면 사용할 수 없으나 임시 사용을 위해 해제) -->
+	<!-- admin : 중복 권한 설정 가능 // 다만 권한 부여는 ROLE_MEMBER, ROLE_ADMIN 두 개 다 기재 필요 -->
+	<security:authentication-manager>
+		<!-- 위에서 등록한 CustomUserDetailsService를 사용해서 인증 정보를 가져오겠다는 의미 -->
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+	        <!-- <security:user-service>
+	            <security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
+	            <security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER, ROLE_ADMIN"/>
+	        </security:user-service> -->
+	       <!--  <security:jdbc-user-service data-source-ref="dataSource"/> --> <!-- 아이디는 데이터에서 가지고 온걸 사용하겠다 -->
+	        <security:password-encoder ref="bcryptPasswordEncoder"/> <!-- 비밀번호는 만들어 논걸 사용하겠다 -->
+    	</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
+

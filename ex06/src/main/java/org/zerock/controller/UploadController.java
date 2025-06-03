@@ -1,0 +1,53 @@
+package org.zerock.controller;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.aspectj.apache.bcel.generic.ReturnaddressType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.extern.log4j.Log4j;
+import oracle.jdbc.proxy.annotation.Post;
+
+@Controller
+@Log4j
+public class UploadController {
+	
+	// Form테그로 이미지 저장하는 법
+	@GetMapping("/uploadForm")
+	public void uploadForm() {
+		log.info("upload form.....");
+	}
+//	uploadForm.jsp에서 multiple="multiple" 기재되어 있다면 여러개 파일을 받아오는 거라 MultipartFile[] 배열로 받아줘야함
+	@PostMapping("/uploadForm")
+	public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
+		
+		// 사진 저장할 경로
+		String uploadFolder = "c:\\upload";
+		
+		for(MultipartFile multipartFile : uploadFile) {
+			log.info("----------");
+			log.info("Upload File Name : " + multipartFile.getOriginalFilename()); // 올린 파일 이름
+			log.info("Upload File Size : " + multipartFile.getSize()); // 올린 파일 크기
+			
+			// 설정 경로에 이미지 저장 => c:\\upload\\판매상품.JPG..으로 저장됨
+			File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
+			
+			try {
+				multipartFile.transferTo(saveFile); // 경로에 파일을 저장해라
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} // end catch
+					
+		} // end for
+	}
+		
+}
+
+

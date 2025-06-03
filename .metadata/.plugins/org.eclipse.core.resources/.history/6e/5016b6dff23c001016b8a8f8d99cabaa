@@ -1,0 +1,39 @@
+package org.zerock.security.domain;
+
+// 기존 클래스를 수정하지 않고 확장하는 방식 이용으로 상속받아 진행
+// 스프링 시큐리티에서 사용자 정보를 담기 위한 클래스, 기본 제공인 User를 상속하여 커스터마이징
+
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.zerock.domain.MemberVO;
+
+import lombok.Getter;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+@Getter
+public class CustomUser extends User {
+	
+	private MemberVO memberVO; // MemberVO를 파라미터로 전달하여 User 클래스에 맞게 생성자 호출
+	
+	// 일반 생성자 만들기, username, password, authorities를 받아서 바로 부모 클래스(User) 생성자에 넘겨주는 구조
+	// 직접 값을 넣어서 CustomUser 객체를 만들고 싶을 때 사용
+	public CustomUser(String username, String password,
+			Collection<? extends GrantedAuthority> authorities) {
+		// authorities : 사용자의 권한 목록
+		super(username, password, authorities); // user.class에 기재된 정보
+	}
+	
+	// MemberVO 기반 생성자 만들기
+	// AuthVO 인스턴스는 GrantedAuthority 객체로 변환해야 하여 stream, map 사용
+	public CustomUser(MemberVO vo) {
+		super(vo.getUserName(), vo.getUserpw(), vo.getAuthList().stream()
+				.map(auth -> new SimpleGrantedAuthority(auth.getAuth())).
+				collect(Collectors.toList())); // 이름, 비밀번호, stream() : 물결(흘려 보낸다) map에서 처리
+	}
+
+}

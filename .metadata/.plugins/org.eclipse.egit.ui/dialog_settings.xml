@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="file://C:\Users\M\Downloads\demo-repository-main\demo-repository-main"/>
+		<item value="file:///C:\Users\M\Downloads\demo-repository-main\demo-repository-main\paldo"/>
+		<item value="file://C:\Users\M\Downloads\demo-repository-main\demo-repository-main\paldo"/>
+	</list>
+	<section name="GitImportWizard">
+	</section>
+</section>

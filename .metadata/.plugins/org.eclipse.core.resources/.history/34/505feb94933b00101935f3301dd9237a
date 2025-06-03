@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?> <!-- 스프링 시큐리티는 단독으로 설정할 수 있어 기존 xml과 다르게 따로 작성하는게 좋음 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 에러나면 스프링이 만든 페이지가 아닌 내가 만든 페이지를 띄운다고 스프링한테 이야기 하는 코드 -->	
+	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
+
+	<!-- 인증 관련 : 접근 제한 설정 // ROLE_MEMBER -> 권한 없으면 로그인 페이지 이동 / permitAll -> 누구나 접근 가능 -->
+	<security:http>
+		<security:intercept-url pattern="/sample/all" access="permitAll"/>
+	    <security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')"/>
+	    <security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>
+	    
+	    <!-- <security:form-login /> -->
+	    
+	    <!-- 시큐리티가 제공하는 로그인 페이지를 사용하지 않고, 내가 직접 로그인 페이지를 구현하겠다. -->
+	    <security:form-login login-page="/customlogin"/>
+	    
+	    <!-- 접근 권한이 없을 때 실행되는 handler -->
+	    <security:access-denied-handler ref="customAccessDenied" /> <!-- ref : 에러 터지면 내가 만든 페이지 링크를 띄우기 -->
+	</security:http>
+	
+	<!-- 인가 관련 : 임시계정 발급 -->
+	<!-- password="{noop}member : 비밀번호를 암호화하지 않고 사용하겠다(시큐리티 5부터는 비밀번호 암호화가 되지 않으면 사용할 수 없으나 임시 사용을 위해 해제) -->
+	<!-- admin : 중복 권한 설정 가능 // 다만 권한 부여는 ROLE_MEMBER, ROLE_ADMIN 두 개 다 기재 필요 -->
+	<security:authentication-manager>
+		<security:authentication-provider>
+	        <security:user-service>
+	            <security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
+	            <security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER, ROLE_ADMIN"/>
+	        </security:user-service>
+    	</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
+

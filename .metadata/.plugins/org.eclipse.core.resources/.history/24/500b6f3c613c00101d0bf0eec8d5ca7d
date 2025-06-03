@@ -1,0 +1,145 @@
+package org.zerock.security;
+
+// 암호화 테스트 코드
+
+import static org.junit.Assert.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import lombok.extern.log4j.Log4j;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({
+	"file:src/main/webapp/WEB-INF/spring/root-context.xml",
+	"file:src/main/webapp/WEB-INF/spring/security-context.xml"
+})
+@Log4j
+public class MemberTests {
+
+	@Autowired
+	private PasswordEncoder pwencoder;
+	
+	@Autowired
+	private DataSource ds;
+	
+	// JDBC + 테스트 데이터 자동 삽입용 코드
+	// DB에 사용자 계정이 하나도 없어 테스트용으로 가짜 유저 데이터를 100명 자동으로 넣는 코드(100명의 회원 데이터를 member 테이블에 자동으로 삽입하는 코드)
+	// SQL이 아닌 자바코드 쓴 이유 : 비밀번호 암호화를 사용하기 때문, 반복문으로 대량의 테스트 계정을 자동으로 생성하기 위해
+	@Test
+	public void testInterMember() { // testInterMember()는 회원 데이터 삽입 테스트용 메서드
+		
+		// userid, userpw, username 3개의 값을 DB에 삽입할 준비 // ?는 나중에 자바 코드에서 값을 채워줄 위치
+		String sql = "insert into tbl_member(userid, userpw, username) values(?, ?, ?)";
+		
+		for(int i=0; i<100; i++) { // i가 0~99까지 반복하며 100명의 데이터 생성
+			Connection conn = null; // conn : 커넥션 객체 선언
+			PreparedStatement pstmt = null; // pstmt : SQL 실행용 객체 선언
+			
+			try {
+				conn = ds.getConnection(); // ds.getConnection(): DB 커넥션 열기
+				pstmt = conn.prepareStatement(sql); // conn.prepareStatement(sql): SQL 준비
+				// 두번째 ? 자리에 들어갈 값 -> 비밀번호 
+				pstmt.setString(2, pwencoder.encode("pw"+i)); // pwencoder.encode("pw"+i) : 비밀번호를 안전하게 암호화한 값
+				
+				if(i<80) {
+					pstmt.setString(1, "user"+i);
+					pstmt.setString(3, "일반사용자"+i);
+				}else if(i<90) {
+					pstmt.setString(1, "manager"+i);
+					pstmt.setString(3, "운영자"+i);
+				}else {
+					pstmt.setString(1, "admin"+i);
+					pstmt.setString(3, "관리자"+i);
+				}
+				
+				pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null)
+					try {
+						pstmt.close();
+					}catch(SQLException el) {
+						el.printStackTrace();
+					}
+				if(pstmt != null)
+					try {
+						conn.close();
+					}catch(SQLException el) {
+						el.printStackTrace();
+					}
+				
+			}
+		}
+	}
+	// 비밀번호 일치 / 불일치 여부 테스트
+	@Test
+	public void validate() {
+		if(pwencoder.matches("pw1", "$2a$10$TTb4RyGfW4CljpeC9xAGA.GWdx4Nodj7P2tqwp9yQx/gvTlLHFCGG")) // 암호화 된 비밀번호
+			log.info("비밀번호 일치");
+		else
+			log.info("비밀번호 불일치");
+	}
+	// 권한정보 테스트
+	@Test
+	public void testInsertAuth() { // testInterMember()는 회원 데이터 삽입 테스트용 메서드
+		
+		// userid, userpw, username 3개의 값을 DB에 삽입할 준비 // ?는 나중에 자바 코드에서 값을 채워줄 위치
+		String sql = "insert into tbl_member_auto(userid, auth) values(?, ?)";
+		
+		for(int i=0; i<100; i++) { // i가 0~99까지 반복하며 100명의 데이터 생성
+			Connection conn = null; // conn : 커넥션 객체 선언
+			PreparedStatement pstmt = null; // pstmt : SQL 실행용 객체 선언
+			
+			try {
+				conn = ds.getConnection(); // ds.getConnection(): DB 커넥션 열기
+				pstmt = conn.prepareStatement(sql); // conn.prepareStatement(sql): SQL 준비
+				// 두번째 ? 자리에 들어갈 값 -> 비밀번호 
+				pstmt.setString(2, pwencoder.encode("pw"+i)); // pwencoder.encode("pw"+i) : 비밀번호를 안전하게 암호화한 값
+				
+				if(i<80) {
+					pstmt.setString(1, "user"+i);
+					pstmt.setString(3, "일반사용자"+i);
+				}else if(i<90) {
+					pstmt.setString(1, "manager"+i);
+					pstmt.setString(3, "운영자"+i);
+				}else {
+					pstmt.setString(1, "admin"+i);
+					pstmt.setString(3, "관리자"+i);
+				}
+				
+				pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null)
+					try {
+						pstmt.close();
+					}catch(SQLException el) {
+						el.printStackTrace();
+					}
+				if(pstmt != null)
+					try {
+						conn.close();
+					}catch(SQLException el) {
+						el.printStackTrace();
+					}
+				
+			}
+		}
+	}
+
+}

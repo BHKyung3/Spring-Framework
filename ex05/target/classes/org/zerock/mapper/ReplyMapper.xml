@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!-- tbl_reply 테이블에 필요한 SQL 작성 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.ReplyMapper">
+
+	<!-- ReplyMapper의 SQL을 처리하는 담당 -->
+	<insert id="insert" parameterType="org.zerock.domain.ReplyVO">
+      insert into tbl_reply(rno, bno, reply, replyer)
+      values(seq_reply.nextval, #{bno}, #{reply}, #{replyer})
+   	</insert>
+   
+   	<!-- 특정 댓글 읽기 -->
+   	<select id="read" resultType="org.zerock.domain.ReplyVO">
+      select * from tbl_reply where rno = #{rno}
+   	</select>
+   
+   	<!-- 특정 댓글 수정 -->
+   	<delete id="delete">
+      delete from tbl_reply where rno = #{rno}
+   	</delete>
+   	
+   	<!-- 특정 댓글 수정 -->
+   	<update id="update">
+      update tbl_reply set reply = #{reply}, updateDate = sysdate
+      where rno = #{rno} 
+   	</update>
+  
+  	<!-- 특정 게시글의 댓글 목록을 페이징 처리해서 조회하는 SQL문 -->
+  	<select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
+  		<![CDATA[
+      		select rno, bno, reply, replyer, replyDate, updateDate --댓글 정보 필드롤 조회
+      		from(
+      			select /* + index(tbl_reply idx_reply) */
+      			rownum rn, rno, bno, reply, replyer, replyDate, updateDate
+      			from tbl_reply --tbl_reply에서 bno 게시글 번호에 해당하는 댓글 조회
+      			where bno = #{bno} 
+      			and rno > 0
+      			and rownum <= #{cri.pageNum} * #{cri.amount}
+      		)
+      		where rn > (#{cri.pageNum}-1) * #{cri.amount} --가져온 댓글 중에서 시작 행 넘버보다 큰 것만 필터링해서 실제 한 페이지 분량 전달
+      	]]>
+   	</select>
+   	
+   	<select id="getCountByBno" resultType="int">
+   		select count(rno) from tbl_reply where bno = #{bno}
+   	</select>
+  
+</mapper>

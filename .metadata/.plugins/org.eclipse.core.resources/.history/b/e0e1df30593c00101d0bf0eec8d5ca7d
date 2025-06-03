@@ -1,0 +1,43 @@
+package org.zerock.security;
+
+// 로그인 성공 시 어떤 페이지로 이동할지 직접 제어하는 커스터마이징 코드
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
+	
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication auth) throws IOException, ServletException { // 로그인 성공 시 자동으로 실행되는 메서드
+			// Authentication auth : 로그인한 사용자 정보가 들어 있음
+		List<String> roleNames = new ArrayList<String>(); // 사용자 권한을 저장할 문지열 리스트 만들기
+		
+		auth.getAuthorities().forEach(authority -> {
+			roleNames.add(authority.getAuthority()); // 로그인한 사용자가 가진 모든 권한을 꺼내서 roleNames 저장
+		});
+		
+		log.info("ROLE NAMES : " + roleNames);
+		
+		if(roleNames.contains("ROLE_ADMIN")) {
+			response.sendRedirect("/sample/admin");
+			return;
+		}else if(roleNames.contains("ROLE_MEMBER")) {
+			response.sendRedirect("/sample/member");
+			return;
+		}
+		response.sendRedirect("/"); // 이 쪽은 올 일은 없을 듯
+	}
+
+}

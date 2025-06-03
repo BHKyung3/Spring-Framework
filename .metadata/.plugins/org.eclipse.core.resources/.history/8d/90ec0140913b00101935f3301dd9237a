@@ -1,0 +1,21 @@
+package org.zerock.controller;
+
+// 접근 권한이 없을 때 실행되는 controller
+
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import lombok.extern.log4j.Log4j;
+
+@Controller
+@Log4j
+public class CommonController {
+
+	@GetMapping("/accessError")
+	public void accessDenied(Authentication auth, Model model) {
+		log.info("access Denid : " + auth);
+		model.addAttribute("msg", "접근이 거부되었습니다.");
+	}
+}

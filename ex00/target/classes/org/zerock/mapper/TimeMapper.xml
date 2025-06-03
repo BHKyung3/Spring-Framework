@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.TimeMapper"> <!-- TimeMapper 인터페이스와 TimeMapper.xml 연결용도로 패키지명 + 폴더명 기재 필요-->
+  <select id="getTime2" resultType="String"> <!-- id : 메서드 이름, resultType : 반환타입 기재 -->
+    select sysdate from dual
+  </select>
+  
+  <!-- 아이디는 : 함수이름, resultType : db 연결 클래스 --> <!-- 전체 데이터 조회 -->
+  <select id="selectAllList" resultType="org.zerock.dto.BoardVO">
+  	select * from board order by num desc <!-- 전체 데이터 가지고오는 구문, ; 반드시 빼야함 -->
+  </select>
+  
+  <!-- 단건 데이터 조회 -->
+  <select id="selectOneByNum" resultType="org.zerock.dto.BoardVO">
+  	select * from board where num =#{num} <!-- 단건 데이터 가지고오는 구문, ; 반드시 빼야함 -->
+  </select>
+  
+  <!-- 반환타입 필요 없으니 resultType 미기재, parameterType 기재하지 않아도 문제 없으나 정확성을 위해 기재하는게 좋음 -->
+  <!-- 데이터 추가-->
+  <insert id="insertBoard" parameterType="org.zerock.dto.BoardVO">
+  	insert into board(num, name, pass, email, title, content) 
+  	values(board_seq.nextval, #{name}, #{pass}, #{email}, #{title}, #{content} )
+  </insert>
+  
+</mapper>
+<!-- ↑ 마이바티스 > 시작하기 > 매핑된 SQL 구문 살펴보기에서 복사해서 기재 -->

@@ -1,0 +1,33 @@
+package org.zerock.security.domain;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.zerock.domain.MemberVO;
+
+import lombok.Getter;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+@Getter
+public class CustomUser extends User {
+	
+	private MemberVO memberVO;
+	
+	// 생성자 만들기(3개 짜리)
+	public CustomUser(String username, String password,
+			Collection<? extends GrantedAuthority> authorities) {
+		super(username, password, authorities); // user.class에 기재된 정보
+	}
+	
+	// 생성자 만들기(호출 2개 짜리)
+	public CustomUser(MemberVO vo) {
+		super(vo.getUserName(), vo.getUserpw(), vo.getAuthList().stream()
+				.map(auth -> new SimpleGrantedAuthority(auth.getAuth())).
+				collect(Collectors.toList())); // 이름, 비밀번호, stream() : 물결(흘려 보낸다) map에서 처리
+	}
+
+}
